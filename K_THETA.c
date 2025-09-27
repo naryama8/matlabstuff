@@ -6,13 +6,13 @@
 #define U(element) (*uPtrs[element]) /*Pointer to Input Port0*/
 
 static void mdlInitializeSizes(SimStruct *S){
-    ssSetNumDiscStates(S, 1);
+    ssSetNumDiscStates(S, 3);
     if (!ssSetNumInputPorts(S, 1)) return;
-    ssSetInputPortWidth(S, 0, 9);
+    ssSetInputPortWidth(S, 0, 4);
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortOverWritable(S, 0, 1);
     if (!ssSetNumOutputPorts(S, 1)) return;
-    ssSetOutputPortWidth(S, 0, 3);
+    ssSetOutputPortWidth(S, 0, 1);
     ssSetNumSampleTimes(S, 1);
 
     ssSetOptions(S, (SS_OPTION_EXCEPTION_FREE_CODE
@@ -37,7 +37,7 @@ static void mdlOutputs(SimStruct *S, int_T tid){
     real_T *Y = ssGetOutputPortRealSignal(S,0);
     real_T *X = ssGetRealDiscStates(S);
 
-
+    Y[0] = X[2];
 
 }
 
@@ -48,6 +48,24 @@ static void mdlUpdate(SimStruct *S, int_T tid) {
 
     real_T dt = 1e-4;
 
+    real_T error_old, error, integral_old, integral, Kp, Ki, theta_input, theta_actual, output;
+
+    Kp = U(0);
+    Ki = U(1);
+    theta_input = U(2);
+    theta_actual = U(3);
+
+    error_old = X[0];
+    error = theta_input - theta_actual;
+
+    integral_old = X[1];
+    integral = integral_old + error * dt;
+
+    output = (Kp * error) + (Ki * integral);
+
+    X[0] = error;
+    X[1] = integral;
+    X[2] = output;
 
 
 }
@@ -61,4 +79,3 @@ static void mdlTerminate(SimStruct *S)
 #else
 #include "cg_sfun.h" /*Code generation registration function*/
 #endif
-

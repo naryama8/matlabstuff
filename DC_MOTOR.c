@@ -72,9 +72,6 @@ static void mdlDerivatives(SimStruct *S) {
     dX[2] = current;
 
 
-
-
-
 }
 
 static void mdlTerminate(SimStruct *S)
