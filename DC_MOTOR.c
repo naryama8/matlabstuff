@@ -64,13 +64,12 @@ static void mdlDerivatives(SimStruct *S) {
     current = X[2];
 
     theta_dot = omega;
-    omega_dot = (Kt / J) * current + (-(1 / J) * Tl);
-    current_dot = (-(Ke / L) * omega) + (-(R / L) * current) + (1 / L) * Ct;
+    omega_dot = (Kt / J) * current -(1 / J) * Tl;
+    current_dot = -(Ke / L) * omega - (R / L) * current + (1 / L) * Ct;
 
     dX[0] = theta_dot;
     dX[1] = omega_dot;
     dX[2] = current_dot;
-
 
 }
 
