@@ -28,18 +28,18 @@ static void mdlOutputs(SimStruct *S, int_T tid) {
 
     real_T inputstep = U(0);
 
-    if (inputstep == 0) {
+	if (inputstep == 0) {
         Y[0] = 0;
     } else {
-        int num = floor(t);
+
+        int num = (int)floor(t);
+
         if (num % 2 == 0) {
-            Y[0] = 1;
+            Y[0] = 1.0;
         } else {
-            Y[0] = 2;
+            Y[0] = 2.0;
         }
-
     }
-
 }
 
 
