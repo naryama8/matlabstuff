@@ -1,5 +1,5 @@
 #define S_FUNCTION_LEVEL 2 
-#define S_FUNCTION_NAME PRSKML
+#define S_FUNCTION_NAME square_function
 #include "simstruc.h" 
 #include <math.h> 
 
