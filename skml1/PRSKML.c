@@ -18,7 +18,7 @@ static void mdlInitializeSizes(SimStruct *S){
     ssSetOptions(S, SS_OPTION_EXCEPTION_FREE_CODE); } 
 
 static void mdlInitializeSampleTimes(SimStruct *S) { 
-    ssSetSampleTime(S, 0, CONTINUOUS_SAMPLE_TIME); 
+    ssSetSampleTime(S, 0, 0.01);
     ssSetOffsetTime(S, 0, 0.0); } 
 
 static void mdlOutputs(SimStruct *S, int_T tid) { 
@@ -31,9 +31,7 @@ static void mdlOutputs(SimStruct *S, int_T tid) {
 	if (inputstep == 0) {
         Y[0] = 0;
     } else {
-
         int num = (int)floor(t);
-
         if (num % 2 == 0) {
             Y[0] = 1.0;
         } else {
